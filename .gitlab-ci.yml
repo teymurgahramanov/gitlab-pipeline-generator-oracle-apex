@@ -1,0 +1,26 @@
+stages:
+  - generate-pipeline
+  - run-pipeline
+
+generate-pipeline:
+  stage: generate-pipeline
+  image: alpine:latest
+  script:
+    - apk add --update --no-cache python3 git && ln -sf python3 /usr/bin/python
+    - export CHANGES=$(git diff-tree --no-commit-id --name-only $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA | awk -vORS=" " '{ print $1 }')
+    - echo $CHANGES
+    - python3 -m ensurepip --upgrade
+    - python3 pipeline-generator.py
+  artifacts:
+    paths:
+      - generated-pipeline.yml
+  tags:
+    - docker-shared
+
+run-pipeline:
+  stage: run-pipeline
+  trigger:
+    include:
+      - artifact: generated-pipeline.yml
+        job: generate-pipeline
+    strategy: depend
