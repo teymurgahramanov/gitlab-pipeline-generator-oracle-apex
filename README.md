@@ -21,3 +21,6 @@
 - Pipeline get generated with jobs for each module and elements and passed as artifact to next stage.
 
 #### On branches other than master, only 'validate' stage will be executed.
+
+## Use case
+There was need to create GitLab repository with CI/CD pipeline for Oracle Apex application which consist of many modules. Each module can contain both Liquibase files and SQL scripts or one of them. Jobs have to be executed only for changed modules. On branches other than master, execute only validation job.
