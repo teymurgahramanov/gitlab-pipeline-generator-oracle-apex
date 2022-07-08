@@ -18,7 +18,7 @@
 ```
 {'Module1': {'liquibase': True, 'scripts': ['f001.sql']}, 'Module2': {'scripts': ['f102.sql']}}
 ```
-- Pipeline get generated with jobs for each module and passed as artifact to next stage.
+- Child pipeline get generated with jobs for each module and passed as artifact to next stage.
 
 #### On branches other than master, only 'validate' stage will be executed.
 
