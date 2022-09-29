@@ -30,7 +30,7 @@ deploy-{module}-liquibase:
 
 def jobs_sql(module,script):
   jobs = f"""
-deploy-{module}-sql:
+deploy-{module}-sql-{script}:
   stage: deploy
   image: oraclelinux:7-slim
   script:
